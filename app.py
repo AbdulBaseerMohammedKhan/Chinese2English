@@ -1,5 +1,3 @@
-from cgitb import text
-from re import M
 from flask import Flask,render_template, request, session, url_for
 from flask_session import Session
 import os
@@ -28,7 +26,7 @@ def handleTextBased(type=CHINESE_TO_ENGLISH,text=""):
     elif(type==ENGLISH_TO_CHINESE):
         # handle that
         pass
-    return r"/home/pacchu/Music/Dido - Thank You.mp3",str(text)
+    return "some",str(text)
 
 def handleSpeechBased(type=CHINESE_TO_ENGLISH,file=None):
     if(file==None):
@@ -51,21 +49,21 @@ def main():
 
 @app.route("/tts",methods=["POST"])
 def texttospeechHandler():
+    print(request.form)
     if request.method == "POST":
         oglang = session.get("lang")
+        print(request.form)
         text = ''
         file = None
-        try:
-            file = request.files['audiofile']
-        except Exception as e:
-            file = None
 
-        if(file == None):
-            audiopath,text = handleTextBased(type=str(oglang),text=str(request.form["textdata"]))
+        file = request.files['audiofile']
+        if(len(file.filename) < 1):
+            print(request.form)
+            audiopath,text = handleTextBased(type=str(oglang),text=str(request.form["txtdta"]))
             return render_template("output.html",MAIN={
                                                         "title":"ChineseTextEngine",
                                                         "heading":"Output",
-                                                        "original":request.form["textdata"],
+                                                        "original":str(request.form["txtdta"]),
                                                         "translated":text,
                                                         "audiogen":audiopath
                                                         })
