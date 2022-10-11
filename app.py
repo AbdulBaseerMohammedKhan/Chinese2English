@@ -54,8 +54,13 @@ def texttospeechHandler():
     if request.method == "POST":
         oglang = session.get("lang")
         text = ''
-        file = request.files['audiofile']
-        if(file.filename == ''):
+        file = None
+        try:
+            file = request.files['audiofile']
+        except Exception as e:
+            file = None
+
+        if(file == None):
             audiopath,text = handleTextBased(type=str(oglang),text=str(request.form["textdata"]))
             return render_template("output.html",MAIN={
                                                         "title":"ChineseTextEngine",
@@ -65,6 +70,7 @@ def texttospeechHandler():
                                                         "audiogen":audiopath
                                                         })
         else:
+            print(f"Got file : {file.filename}")
             audiopath,transcribe,text = handleSpeechBased(type=str(oglang),file=file)
             return render_template("output.html",MAIN={
                                                         "title":"ChineseTextEngine",
