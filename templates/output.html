@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ MAIN.heading }}</h1>
+  <!-- Normal textarea -->
+  <!-- Read-only textarea -->
+  <h3>Input Text</h3>
+  <br>
+  <textarea class="form-control" readonly="readonly">{{ MAIN.original }}</textarea>
+  <hr>
+  <h3>Translated</h3>
+  <br>
+  <textarea class="form-control" readonly="readonly">{{ MAIN.translated }}</textarea>
+  <audio controls>
+    <source src={{ MAIN.audiogen }} type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio> 
+{% endblock %}

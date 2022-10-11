@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ MAIN.heading }}</h1>
+  <p class="important">
+    <textarea class="form-control" id="textdata" placeholder="{{ MAIN.oglang }}"></textarea>
+    <form method="post" enctype="multipart/form-data" action="/tts">
+      <center>or</center>
+            <input type="file" name="audiofile"/>
+            <br>
+            <br>
+            <input class="btn btn-primary" type="submit" id="submitButton" value="Transcribe"/>
+        </form>
+{% endblock %}

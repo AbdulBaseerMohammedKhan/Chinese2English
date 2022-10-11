@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ MAIN.heading }}</h1>
+  <p class="important">
+    <form action="/trans">
+        <p>Select Conversion Type</p>
+        <div class="custom-radio d-inline-block mr-16">
+            <input type="radio" id="c2e" name="ltype" value="c2e"><label for="c2e">Chinese To English</label><br>
+        </div>
+        <div class="custom-radio d-inline-block mr-16">
+          <input type="radio" id="e2c" name="ltype" value="e2c"><label for="e2c">English To Chinese</label><br>
+        </div>
+        <br> 
+        
+        <!-- <p>Select Translation Type</p>
+        <div class="custom-radio d-inline-block mr-16"> 
+            <input type="radio" id="tts" name="ttype" value="tts"><label for="tts">Text To Speech</label><br>
+        </div>
+        <div class="custom-radio d-inline-block mr-16">  
+          <input type="radio" id="stt" name="ttype" value="stt"><label for="stt">Speech To Text</label><br>
+        </div>
+        <br>
+        <br>  -->
+        <br>
+        <input class="btn btn-primary" type="submit" value="Go">
+      </form>
+{% endblock %}
