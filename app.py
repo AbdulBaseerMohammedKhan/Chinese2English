@@ -188,21 +188,26 @@ def main():
 
 @app.route("/tts",methods=["POST"])
 def texttospeechHandler():
+    print(request.form)
     if request.method == "POST":
         oglang = session.get("lang")
+        print(request.form)
         text = ''
+        file = None
+
         file = request.files['audiofile']
-        if(file.filename == ''):
-            audiopath,text = handleTextBased(type=str(oglang),text=str(request.form["textdata"]))
+        if(len(file.filename) < 1):
+            print(request.form)
+            audiopath,text = handleTextBased(type=str(oglang),text=str(request.form["txtdta"]))
             return render_template("output.html",MAIN={
                                                         "title":"ChineseTextEngine",
                                                         "heading":"Output",
-                                                        "original":request.form["textdata"],
+                                                        "original":str(request.form["txtdta"]),
                                                         "translated":text,
                                                         "audiogen":audiopath
                                                         })
         else:
-            
+            print(f"Got file : {file.filename}")
             audiopath,transcribe,text = handleSpeechBased(type=str(oglang),file=file)
             return render_template("output.html",MAIN={
                                                         "title":"ChineseTextEngine",
@@ -213,7 +218,6 @@ def texttospeechHandler():
                                                         })    
     else:
         return "500?"
-    
 
 @app.route("/trans",methods=["GET", "POST"])
 def trans():
